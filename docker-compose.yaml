@@ -1,5 +1,6 @@
 version: "3.7"
 services:
+
   book_db:
     image: postgres:11-alpine
     ports:
