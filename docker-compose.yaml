@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  book_db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: "bookuser"
+      POSTGRES_PASSWORD: "bookdbpass"
+      POSTGRES_DB: "books_db"
+
+  redis_books_db:
+    image: redis
+    command: redis-server --requirepass Redis2019!
+    ports:
+      - "6379:6379"
