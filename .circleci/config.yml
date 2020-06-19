@@ -2,10 +2,10 @@ executors:
   my-executor:
     docker:
       - image: circleci/postgres:11-alpine
-        environment:
-          POSTGRES_USER: bookuser
-          POSTGRES_PASSWORD: bookdbpass
-          POSTGRES_DB: books_db
+    environment:
+      POSTGRES_USER: bookuser
+      POSTGRES_PASSWORD: bookdbpass
+      POSTGRES_DB: books_db
 
 orbs:
   gradle: circleci/gradle@2.1
