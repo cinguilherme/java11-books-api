@@ -1,7 +1,19 @@
+executors:
+  my-executor:
+    docker:
+      - image: circleci/postgres:9.6-alpine
+          environment:
+            POSTGRES_USER: bookuser
+            POSTGRES_PASSWORD: bookdbpass
+            POSTGRES_DB: books_db
+
 orbs:
   gradle: circleci/gradle@2.1
+
 version: 2.1
+
 workflows:
-  checkout-build-test:
+  gradle_test:
     jobs:
-      - gradle/test
+      - gradle/test:
+          executor: my-executor
