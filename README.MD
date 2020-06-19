@@ -1,0 +1,1 @@
+this app is a simple restfull api build with java 11 and springboot and with postgres db and redis data solution.
