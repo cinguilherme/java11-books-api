@@ -1,19 +1,39 @@
+version: 2.1
+description:
+
+orbs:
+  gradle: circleci/gradle@2
+
 executors:
-  my-executor:
+  gradle:
     docker:
-      - image: circleci/postgres:9.6.13-alpine-ram
+      - image: circleci/openjdk:11-jdk
+  postgres:
+    docker:
+      - image: circleci/openjdk:11-jdk
+      - image: circleci/postgres:9.6.3-alpine
         environment:
           POSTGRES_USER: bookuser
           POSTGRES_PASSWORD: bookdbpass
           POSTGRES_DB: books_db
 
-orbs:
-  gradle: circleci/gradle@2.1
+jobs:
+  build:
+    parameters:
+      executor:
+        description: The name of custom executor to use
+        type: executor
+        default: gradle
+      artifacts_path:
+        description: Path to artifacts
+        type: string
+        default: '**/build/libs/*.jar'
+    executor: postgres
+    steps:
+      - checkout
 
-version: 2.1
-
-workflows:
-  gradle_test:
-    jobs:
-      - gradle/test:
-          executor: my-executor
+      - gradle/with_cache:
+          steps:
+            - run:
+                name: Test
+                command: ./gradlew test
