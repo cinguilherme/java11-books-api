@@ -1,5 +1,6 @@
 package com.gcc.coreapi.books;
 
+import com.gcc.coreapi.books.cache.BooksCache;
 import com.gcc.coreapi.books.models.Book;
 import com.gcc.coreapi.books.repository.BookRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +21,13 @@ public class BooksController {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private BooksCache booksCache;
+
     @GetMapping("/books")
     ResponseEntity getBooks() {
+        log.info("getting books");
+
         Iterable<Book> all = bookRepository.findAll();
         List<Book> allBooks = (List<Book>) all;
         return ResponseEntity.ok(allBooks);
