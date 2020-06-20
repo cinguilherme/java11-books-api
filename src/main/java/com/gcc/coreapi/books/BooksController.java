@@ -1,10 +1,10 @@
 package com.gcc.coreapi.books;
 
-import com.gcc.coreapi.books.cache.BooksCache;
 import com.gcc.coreapi.books.models.Book;
 import com.gcc.coreapi.books.repository.BookRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,18 +21,15 @@ public class BooksController {
     @Autowired
     private BookRepository bookRepository;
 
-    @Autowired
-    private BooksCache booksCache;
-
     @GetMapping("/books")
     ResponseEntity getBooks() {
-        log.info("getting books");
 
         Iterable<Book> all = bookRepository.findAll();
         List<Book> allBooks = (List<Book>) all;
         return ResponseEntity.ok(allBooks);
     }
 
+    @Cacheable(value = "single-book", key = "#id")
     @GetMapping("/books/{id}")
     ResponseEntity getBooksById(@PathVariable String id) {
         try {
