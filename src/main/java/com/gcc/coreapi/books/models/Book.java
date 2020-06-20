@@ -1,7 +1,8 @@
 package com.gcc.coreapi.books.models;
 
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,17 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Data
 @Table(name = "book")
+@Builder
+@Getter
 public class Book {
 
-    private @Id @GeneratedValue Long id;
+    private @Id
+    @GeneratedValue
+    Long id;
 
     private String name;
-
-    Book() {}
-
-    Book(String name) {
-        this.name = name;
-    }
 }
