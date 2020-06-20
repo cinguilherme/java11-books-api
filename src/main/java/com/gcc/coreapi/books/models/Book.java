@@ -1,22 +1,21 @@
 package com.gcc.coreapi.books.models;
 
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "book")
 @Builder
 @Getter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Book {
 
     private @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     private String name;
