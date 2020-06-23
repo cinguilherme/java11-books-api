@@ -23,7 +23,8 @@ public class BooksController {
 
     @GetMapping("/books")
     ResponseEntity getBooks() {
-
+        var somethingToRemember = "this is something I will log";
+        log.info("testing this cool new feature in java11 {}", somethingToRemember);
         Iterable<Book> all = bookRepository.findAll();
         List<Book> allBooks = (List<Book>) all;
         return ResponseEntity.ok(allBooks);

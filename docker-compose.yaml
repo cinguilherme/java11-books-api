@@ -18,5 +18,19 @@ services:
     ports:
       - "6379:6379"
 
+  local-rabbit-books:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq-books
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "admin"
+      restart: always
+    volumes:
+      - rabbitmq-data-books:/var/lib/rabbitmq
+
 volumes:
   database-data: # named volumes can be managed easier using docker-compose
+  rabbitmq-data-books:
